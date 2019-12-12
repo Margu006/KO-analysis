@@ -1,5 +1,5 @@
-
-
+#!/bin/bash
+#SBATCH --nodes 1 --ntasks 2 --mem 2gb --time 2:00:00
 
 my_data = 3300000333.a.ko.txt
 
