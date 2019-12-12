@@ -1,0 +1,11 @@
+
+
+
+my_data = 3300000333.a.ko.txt
+
+cut -f1,3 my_data > my_data_cleaned.ko.txt
+
+awk '{gsub("KO:","",$2)}1' my_data_cleaned.ko.txt > honeybee_microbiome_ko.txt
+
+
+
