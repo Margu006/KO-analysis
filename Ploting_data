@@ -1,0 +1,33 @@
+library(ggplot2)
+library(dplyr)
+library(tidyverse)
+library(viridis)
+library(hrbrthemes)
+
+my_data<-read.csv("pathways_honeybee.csv", header=TRUE)
+my_data
+class(my_data)
+str(my_data)
+levels(my_data$Subcategory)->subca
+class(subca)
+    
+my_data %>% group_by(Category, Subcategory) %>% 
+       summarise(total_frequency =sum(Frequency))
+       
+group_by(my_data, Category, Subcategory)->metabolism
+summarise(metabolism, total_frequency=sum(Frequency))->categories_to_plot
+class(categories_to_plot)
+
+my_plot<-ggplot(data=categories_to_plot, aes(x=Subcategory, y=total_frequency)) +
+  geom_bar(stat="identity") +
+  coord_flip()
+
+my_plot
+
+my_plot<-ggplot(data=categories_to_plot, aes(fill=Category, x=reorder(Subcategory, total_frequency), y=total_frequency)) + 
+    geom_bar(position="stack", stat="identity")+
+      coord_flip()+
+  scale_fill_viridis(discrete = T) +
+    theme_ipsum() +
+    xlab("Molecular processes") +
+  ylab("Number of genes")
